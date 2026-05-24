@@ -32,6 +32,8 @@ Una vez ejecutado, el servidor imprime en consola los enlaces disponibles:
 ============================
 Servidor corriendo en :3000
 ============================
+URL principal: http://localhost:3000
+Rutas disponibles:
 GET  http://localhost:3000/users
 GET  http://localhost:3000/coders
 GET  http://localhost:3000/coders/active
@@ -39,7 +41,7 @@ GET  http://localhost:3000/coders/inactive
 GET  http://localhost:3000/health
 ```
  
-Copiar y pegar `http://localhost:3000` en el navegador para abrir la app.
+Copiar y pegar URL principal `http://localhost:3000` en el navegador para abrir la app.
  
 > **El servidor debe estar corriendo** para que la app funcione. Si se cierra
 > la terminal o se detiene el proceso, la app perderá la conexión y no podrá
