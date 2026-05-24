@@ -1,6 +1,6 @@
 # Coders SPA
 
-Single Page Application para gestionar un equipo de coders. Construida con HTML, CSS y JavaScript vanilla. Usa JSON Server como backend.
+Single Page Application para gestionar coders. Construida con HTML, CSS y JavaScript vanilla. Usa JSON Server como backend.
 - ver [Cómo hacer tu propia SPA](./tupropiaspa.md).
 - ver  [Guía fetch vs axios](./fetchvsaxios.md).
 
