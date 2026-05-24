@@ -25,7 +25,22 @@ Todas las secciones existen en el HTML desde el inicio. JavaScript solo muestra 
 El HTML tiene un solo contenedor vacío. JavaScript crea e inyecta el HTML de cada vista dinámicamente. Es la base de frameworks como React y Vue.
 
 ```html
-<div id="app"></div> <!-- JavaScript llena este contenedor en tiempo de ejecución -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi SPA</title>
+</head>
+<body>
+
+    <div id="app"></div> 
+    
+    <!-- Aquí se inyecta tu código o empaquetado de JavaScript -->
+    <script src="/ruta/a/tu/app.js"></script>
+</body>
+</html>
+
 ```
 
 > Esta guía usa el **enfoque A**. El enfoque B escala mejor en proyectos grandes
