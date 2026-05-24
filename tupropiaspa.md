@@ -521,12 +521,12 @@ Usuario cierra sesión
 
 ---
 
-## Qué agregar para crecer el proyecto
+## Tarea: ¿ Qué agregar para mejorar el proyecto ?
 
-| Necesidad | Cómo resolverlo |
+| Idea | Cómo resolverlo |
 |---|---|
 | Más vistas | Agregar `<section>` en HTML + línea en `rutas` de `router.js` |
 | Autenticación real | Validar usuario contra `GET /usuarios` en el servidor |
-| Animación al cambiar de vista | Agregar clases `saliendo` en el router y escuchar `animationend` |
+| Animación al cambiar de vista | Agregar clases necesarias |
 | Persistir sesión con datos del usuario | Guardar el objeto completo con `JSON.stringify` en localStorage |
 | PUT para editar | Agregar `api.put()` en `api.js` y un modal de edición en `views.js` |
