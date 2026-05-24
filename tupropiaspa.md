@@ -72,16 +72,16 @@ mi-spa/
 ---
 
 ## Paso 0 — Configurar el servidor con JSON Server
-
+ 
 ### Instalación
-
+ 
 ```bash
 npm init -y
-npm install json-server axios
+npm install json-server@0.17.4 axios
 ```
-
+ 
 ### `db.json` — la base de datos
-
+ 
 ```json
 {
   "usuarios": [
@@ -94,9 +94,9 @@ npm install json-server axios
   ]
 }
 ```
-
+ 
 ### `package.json` — agregar el script de inicio
-
+ 
 ```json
 {
   "scripts": {
@@ -104,36 +104,45 @@ npm install json-server axios
   }
 }
 ```
-
+ 
 > `--static public` le dice a JSON Server que sirva los archivos de la
 > carpeta `public/` — ahí van el HTML, CSS y JS del cliente.
-
+ 
 ### Correr el servidor
-
+ 
 ```bash
 npm start
 ```
-
+ 
 Luego abrir `http://localhost:3000` en el navegador. El servidor imprime
 en consola los endpoints disponibles:
-
+ 
 ```
-GET  http://localhost:3000/usuarios
-GET  http://localhost:3000/tareas
-POST http://localhost:3000/tareas
-...
+JSON Server started on PORT :3000
+Press CTRL-C to stop
+Watching db.json...
+ 
+Index:
+http://localhost:3000/
+ 
+Endpoints:
+http://localhost:3000/usuarios
+http://localhost:3000/tareas
 ```
-
+ 
+> El servidor solo lista los endpoints GET en consola, pero POST, PUT y DELETE
+> también están disponibles automáticamente para cada colección de `db.json`.
+ 
 > ⚠️ **No usar Live Server.** Cada vez que `db.json` cambia (con cada POST
 > o DELETE), Live Server detecta el cambio y recarga la página — lo que
 > interrumpe cualquier operación en curso. Siempre usar `http://localhost:3000`.
-
+ 
 ---
-
+ 
 ## Paso 1 — El HTML: todas las vistas juntas
-
+ 
 Todas las "pantallas" se escriben en el mismo `index.html`. Cada una es un `<section>` con un ID único. Solo una estará visible a la vez.
-
+ 
 ```html
 <!DOCTYPE html>
 <html lang="es">
@@ -143,7 +152,7 @@ Todas las "pantallas" se escriben en el mismo `index.html`. Cada una es un `<sec
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
+ 
   <!-- VISTA 1: Login — visible al cargar -->
   <section id="vista-login" class="vista activa">
     <h1>Bienvenido</h1>
@@ -151,85 +160,84 @@ Todas las "pantallas" se escriben en el mismo `index.html`. Cada una es un `<sec
     <button id="btn-entrar">Entrar</button>
     <p id="error-login" class="oculto">Por favor escribe tu nombre.</p>
   </section>
-
+ 
   <!-- VISTA 2: Tareas — oculta al cargar -->
   <section id="vista-tareas" class="vista oculto">
     <h2>Mis tareas</h2>
     <p id="saludo"></p>
-
+ 
     <div>
       <input type="text" id="input-tarea" placeholder="Nueva tarea..." />
       <button id="btn-agregar">Agregar</button>
     </div>
-
+ 
     <ul id="lista-tareas"></ul>
-
+ 
     <button id="btn-salir">Cerrar sesión</button>
   </section>
-
+ 
   <!-- axios debe cargarse antes que los módulos JS -->
   <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
   <script type="module" src="./js/app.js"></script>
 </body>
 </html>
 ```
-
+ 
 Puntos clave:
 - `class="vista activa"` → visible al cargar
 - `class="vista oculto"` → oculta al cargar
 - Solo existe **un** archivo HTML — no hay `tareas.html` ni `login.html`
-
 ---
-
+ 
 ## Paso 2 — El CSS: visibilidad controlada por clases
-
+ 
 JavaScript nunca cambia estilos directamente. Solo agrega y quita clases — el CSS hace el resto.
-
+ 
 ```css
 /* style.css */
-
+ 
 /* todas las vistas ocultas por defecto */
 .vista {
   display: none;
 }
-
+ 
 /* solo la que tiene .activa se muestra */
 .vista.activa {
   display: block;
   animation: entrada 0.3s ease forwards; /* opcional */
 }
-
+ 
 /* clase utilitaria para ocultar cualquier elemento */
 .oculto {
   display: none;
 }
-
+ 
 @keyframes entrada {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 ```
-
+ 
 ---
-
+ 
 ## Paso 3 — `api.js`: comunicación con el servidor
-
+ 
 Todas las llamadas HTTP se centralizan aquí. El resto de la app nunca usa axios directamente — solo importa el objeto `api`.
-
+ 
 ```javascript
 // js/api.js
-
+ 
 // axios está disponible como variable global porque index.html
 // lo carga con el <script> del CDN antes que este módulo
-
+ 
 // se crea una instancia con la URL base del servidor
 // así los demás módulos solo pasan la ruta relativa: '/tareas', '/usuarios', etc.
 const http = axios.create({
   baseURL: 'http://localhost:3000'
 });
-
+ 
 export const api = {
-
+ 
   // GET: obtener datos del servidor
   // axios parsea el JSON automáticamente — los datos llegan en response.data
   get: async (param) => {
@@ -241,7 +249,7 @@ export const api = {
       throw error; // re-lanza para que el módulo llamador muestre el error al usuario
     }
   },
-
+ 
   // POST: crear un recurso nuevo
   // axios serializa el objeto a JSON y agrega Content-Type automáticamente
   post: async (param, data) => {
@@ -253,7 +261,7 @@ export const api = {
       throw error;
     }
   },
-
+ 
   // DELETE: eliminar un recurso
   del: async (param) => {
     try {
@@ -266,39 +274,39 @@ export const api = {
   }
 };
 ```
-
+ 
 > Si en el futuro se cambia axios por `fetch` nativo u otra librería,
 > solo se toca este archivo. El resto de la app no se entera.
-
+ 
 ---
-
+ 
 ## Paso 4 — `router.js`: la función que cambia de vista
-
+ 
 El router es la única parte de la app que decide qué vista está visible. Ningún otro archivo manipula las clases de las vistas.
-
+ 
 ```javascript
 // js/router.js
-
+ 
 // relaciona cada nombre de ruta con el ID del <section> en el HTML
 // agregar una vista nueva solo requiere añadir una línea aquí
 const rutas = {
   login:  'vista-login',
   tareas: 'vista-tareas'
 };
-
+ 
 export function irA(nombreRuta) {
   const idDestino = rutas[nombreRuta];
   if (!idDestino) {
     console.warn(`La ruta "${nombreRuta}" no existe.`);
     return;
   }
-
+ 
   // 1. ocultar todas las vistas
   document.querySelectorAll('.vista').forEach(vista => {
     vista.classList.remove('activa');
     vista.classList.add('oculto');
   });
-
+ 
   // 2. mostrar solo la vista destino
   const destino = document.getElementById(idDestino);
   if (destino) {
@@ -308,52 +316,52 @@ export function irA(nombreRuta) {
   }
 }
 ```
-
+ 
 ---
-
+ 
 ## Paso 5 — `views.js`: lógica de cada vista
-
+ 
 Cada función `init` configura una vista: registra los listeners de sus botones y define qué hace cada uno.
-
+ 
 ```javascript
 // js/views.js
-
+ 
 import { api } from './api.js';
 import { irA } from './router.js';
-
+ 
 // ── LOGIN ─────────────────────────────────────────────────────────────────────
-
+ 
 export function initLogin() {
   const btnEntrar   = document.getElementById('btn-entrar');
   const inputNombre = document.getElementById('input-nombre');
   const errorLogin  = document.getElementById('error-login');
-
+ 
   btnEntrar.addEventListener('click', () => {
     const nombre = inputNombre.value.trim();
-
+ 
     if (!nombre) {
       errorLogin.classList.remove('oculto'); // muestra el mensaje de error
       return;
     }
-
+ 
     errorLogin.classList.add('oculto');
-
+ 
     // guardar el nombre en localStorage para recordarlo si recarga la página
     localStorage.setItem('usuario', nombre);
-
+ 
     document.getElementById('saludo').textContent = `Hola, ${nombre} 👋`;
-
+ 
     cargarTareas(); // carga las tareas antes de navegar
     irA('tareas');
   });
 }
-
+ 
 // ── TAREAS ────────────────────────────────────────────────────────────────────
-
+ 
 // carga las tareas desde el servidor y las renderiza
 export async function cargarTareas() {
   const lista = document.getElementById('lista-tareas');
-
+ 
   try {
     const tareas = await api.get('/tareas'); // GET http://localhost:3000/tareas
     renderizarTareas(tareas);
@@ -361,16 +369,16 @@ export async function cargarTareas() {
     lista.innerHTML = '<li>⚠️ No se pudieron cargar las tareas.</li>';
   }
 }
-
+ 
 // genera el HTML de cada tarea y lo inyecta en la lista
 function renderizarTareas(tareas) {
   const lista = document.getElementById('lista-tareas');
-
+ 
   if (tareas.length === 0) {
     lista.innerHTML = '<li>No hay tareas aún.</li>';
     return;
   }
-
+ 
   // data-id conecta cada botón con el ID de su tarea — sin variables globales
   lista.innerHTML = tareas.map(t => `
     <li>
@@ -379,21 +387,21 @@ function renderizarTareas(tareas) {
     </li>
   `).join('');
 }
-
+ 
 export function initTareas() {
   const btnAgregar  = document.getElementById('btn-agregar');
   const inputTarea  = document.getElementById('input-tarea');
   const lista       = document.getElementById('lista-tareas');
   const btnSalir    = document.getElementById('btn-salir');
-
+ 
   // agregar tarea: POST al servidor y re-renderizar
   btnAgregar.addEventListener('click', async () => {
     const texto = inputTarea.value.trim();
     if (!texto) return;
-
+ 
     btnAgregar.disabled    = true;
     btnAgregar.textContent = 'Agregando...';
-
+ 
     try {
       const nueva = await api.post('/tareas', { texto, completada: false });
       inputTarea.value = '';
@@ -405,14 +413,14 @@ export function initTareas() {
       btnAgregar.textContent = 'Agregar';
     }
   });
-
+ 
   // event delegation: un solo listener para todos los botones de borrar
   // sin esto, cada botón necesitaría su propio listener y se perderían al re-renderizar
   lista.addEventListener('click', async (e) => {
     if (!e.target.classList.contains('btn-borrar')) return;
-
-    const id = Number(e.target.dataset.id); // lee el ID desde data-id del botón
-
+ 
+    const id = e.target.dataset.id; // lee el ID desde data-id del botón — sin Number(), json-server usa strings
+ 
     try {
       await api.del(`/tareas/${id}`); // DELETE http://localhost:3000/tareas/:id
       cargarTareas(); // refresca la lista
@@ -420,7 +428,7 @@ export function initTareas() {
       alert('No se pudo eliminar la tarea.');
     }
   });
-
+ 
   // cerrar sesión
   btnSalir.addEventListener('click', () => {
     localStorage.removeItem('usuario');
@@ -429,28 +437,28 @@ export function initTareas() {
   });
 }
 ```
-
+ 
 ---
-
+ 
 ## Paso 6 — `app.js`: el punto de entrada
-
+ 
 `app.js` importa todo, inicializa los módulos en orden y decide la vista inicial.
-
+ 
 ```javascript
 // js/app.js
-
+ 
 import { irA }                          from './router.js';
 import { initLogin, initTareas, cargarTareas } from './views.js';
-
+ 
 function init() {
   // 1. registrar TODOS los listeners primero
   //    los botones deben tener sus eventos antes de que el usuario los vea
   initLogin();
   initTareas();
-
+ 
   // 2. restaurar sesión o ir al login
   const usuario = localStorage.getItem('usuario');
-
+ 
   if (usuario) {
     // hay sesión guardada: mostrar el saludo y cargar tareas
     document.getElementById('saludo').textContent = `Hola, ${usuario} 👋`;
@@ -460,16 +468,16 @@ function init() {
     irA('login');
   }
 }
-
+ 
 // arrancar la aplicación
 init();
 ```
-
+ 
 > **¿Por qué los listeners van antes de `irA()`?**
 > Si se navega primero y los botones ya son visibles, pero las funciones
 > `init` aún no corrieron, los clicks no harán nada. Los listeners
 > siempre se registran antes de activar cualquier vista.
-
+ 
 ---
 
 ## Flujo completo
