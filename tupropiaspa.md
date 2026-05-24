@@ -118,22 +118,26 @@ Luego abrir `http://localhost:3000` en el navegador. El servidor imprime
 en consola los endpoints disponibles:
  
 ```
-JSON Server started on PORT :3000
-Press CTRL-C to stop
-Watching db.json...
- 
-Index:
-http://localhost:3000/
- 
-Endpoints:
-http://localhost:3000/usuarios
-http://localhost:3000/tareas
+\{^_^}/ hi!
+
+  Loading db.json
+  Done
+
+  Resources
+  http://localhost:3000/usuarios
+  http://localhost:3000/tareas
+
+  Home
+  http://localhost:3000
+
+  Type s + enter at any time to create a snapshot of the database
+  Watching...
 ```
  
 > El servidor solo lista los endpoints GET en consola, pero POST, PUT y DELETE
 > también están disponibles automáticamente para cada colección de `db.json`.
  
-> ⚠️ **No usar Live Server.** Cada vez que `db.json` cambia (con cada POST
+> ⚠️ **No usar Live Server.** Cada vez que `db.json` cambia (con cada, PUT, POST
 > o DELETE), Live Server detecta el cambio y recarga la página — lo que
 > interrumpe cualquier operación en curso. Siempre usar `http://localhost:3000`.
  
