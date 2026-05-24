@@ -1,0 +1,21 @@
+{
+  "name": "spa-tutoria",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "tutorias",
+  "license": "ISC",
+  "description": "SPA con JavaScript Vanilla y JSON Server",
+  "dependencies": {
+    "axios": "^1.16.1",
+    "json-server": "^0.17.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
