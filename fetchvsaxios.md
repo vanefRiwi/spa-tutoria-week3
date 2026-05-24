@@ -1,7 +1,7 @@
 # Axios vs Fetch — Teoria
 
 Esta guía explica qué es `fetch`, cómo se usa en su forma completa, qué es `axios`, en qué se diferencian, y cómo funciona `axios` en este proyecto junto con `async/await`.
-
+- volver al readme principal [README.md](./README.md).
 ---
 
 ## ¿Qué es una petición HTTP?
