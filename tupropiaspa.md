@@ -37,7 +37,7 @@ El HTML tiene un solo contenedor vacío. JavaScript crea e inyecta el HTML de ca
     <div id="app"></div> 
     
     <!-- Aquí se inyecta tu código o empaquetado de JavaScript -->
-    <script src="/ruta/a/tu/app.js"></script>
+    <script src="/ruta/a/tu/app o bundler.js"></script>
 </body>
 </html>
 
