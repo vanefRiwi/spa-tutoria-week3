@@ -1,6 +1,6 @@
 # Cómo hacer tu propia SPA desde cero
 
-Este README es una guía de referencia para construir una Single Page Application simple con HTML, CSS y JavaScript vanilla, usando JSON Server como backend. El objetivo es aplicarlo a cualquier proyecto propio.
+Este README es una guía de referencia para la actividad de construir una Single Page Application simple con HTML, CSS y JavaScript vanilla, usando JSON Server como backend. El objetivo es aplicarlo a cualquier proyecto propio.
 
 El ejemplo que se usa a lo largo de la guía es una app de tareas (todo list) con login, lista de tareas y cerrar sesión.
 
