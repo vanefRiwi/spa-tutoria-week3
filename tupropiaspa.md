@@ -4,8 +4,8 @@ Este README es una guía de referencia para construir una Single Page Applicatio
 
 El ejemplo que se usa a lo largo de la guía es una app de tareas (todo list) con login, lista de tareas y cerrar sesión.
 
-> Para ver cómo se aplicó este mismo patrón en un proyecto real más completo como SPA Coders: ,
-> ver [README.md](./README.md).
+> Para ver cómo se aplicó un patrón similar en un proyecto real más completo como SPA Coders: 
+> ver aquí [README.md](./README.md).
 
 ---
 
