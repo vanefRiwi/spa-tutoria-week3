@@ -50,7 +50,7 @@ Copiar y pegar URL principal `http://localhost:3000` en el navegador para abrir 
 
 ### ⚠️ Importante
 >  **No usar Live Server.** Cada vez que `db.json` cambia (con cada PUT, POST
-> , DELETE), Live Server detecta el cambio y recarga la página — lo que
+> , DELETE), Live Server detecta el cambio y recarga la página, lo que
 > interrumpe cualquier operación en curso.  
 Siempre usar `http://localhost:3000`.
 
@@ -108,7 +108,7 @@ spa-tutoria/
 
 Una **Single Page Application** es una aplicación web que vive en un único archivo HTML. En lugar de navegar a páginas distintas (cada una con su propia URL y recarga del navegador), la app muestra y oculta secciones del mismo documento según lo que el usuario necesite ver. Esto da la sensación de velocidad y fluidez de una app de escritorio.
 
-En este proyecto, `index.html` contiene las tres "pantallas" al mismo tiempo — login, home y contacto — apiladas una sobre otra. Solo una está visible en cada momento. El código JavaScript es quien decide cuál.
+En este proyecto, `index.html` contiene las tres "pantallas" al mismo tiempo —login, home y contacto — apiladas una sobre otra. Solo una está visible en cada momento. El código JavaScript es quien decide cuál.
 
 ---
 
@@ -334,7 +334,7 @@ export function navigateTo(routeName) {
     const target = document.getElementById(targetId);
     if (target) {
       target.classList.remove('hidden');
-      void target.offsetWidth; // fuerza reflow: reinicia la animación CSS desde cero
+      void target.offsetWidth; // reflow: reinicia la animación CSS desde cero
       target.classList.add('active'); // dispara la animación de entrada definida en CSS
     }
   };
@@ -353,11 +353,6 @@ export function navigateTo(routeName) {
 
 Las animaciones de entrada y salida están definidas enteramente en CSS. El router solo agrega o quita las clases `active`, `leaving` e `hidden`; el CSS se encarga del resto.
 
-> **¿Por qué `void target.offsetWidth`?**  
-> Esta línea fuerza al navegador a recalcular el layout antes de agregar la
-> clase `active`. Sin ella, si la misma vista se mostrara dos veces seguidas,
-> el navegador no reiniciaría la animación CSS porque técnicamente la clase
-> ya estaba aplicada.
 
 ---
 
