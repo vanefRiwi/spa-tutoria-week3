@@ -281,7 +281,7 @@ console.log(response.data); // {} o el objeto eliminado
 Con `fetch`, esa misma URL base (`http://localhost:3000`) habría que escribirla
 en los cuatro bloques. Si el servidor cambia de puerto o dominio, con axios
 se actualiza en un solo lugar; con `fetch` habría que buscarla en cada llamada.
-```
+
 
 ### Tabla comparativa
 
