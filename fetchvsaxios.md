@@ -225,7 +225,7 @@ No hay forma nativa de configurar `http://localhost:3000` una sola vez.
 
 ## `axios` — la librería que simplifica todo
 
-`axios` es una librería externa que resuelve exactamente esas cuatro limitaciones de forma transparente. Se instala con npm para proyectos incializados con vite:
+`axios` es una librería externa que resuelve exactamente esas cuatro limitaciones de forma transparente. Se instala con npm para proyectos incializados con vite u otro bundler:
 
 ```bash
 npm install axios
