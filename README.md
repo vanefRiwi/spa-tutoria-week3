@@ -46,10 +46,9 @@ Copiar y pegar `http://localhost:3000` en el navegador para abrir la app.
 
 
 ### ⚠️ Importante
-
-**No abras el proyecto con Live Server** (`localhost:5500`).  
-Live Server recarga la página automáticamente cuando `db.json` cambia.  
-Como cada operación CRUD modifica `db.json`, eso provoca que la sesión se pierda y la app redirija al login después de cada acción.
+>  **No usar Live Server.** Cada vez que `db.json` cambia (con cada POST
+> o DELETE), Live Server detecta el cambio y recarga la página — lo que
+> interrumpe cualquier operación en curso. Siempre usar `http://localhost:3000`.
 
 Siempre usá `http://localhost:3000`.
 
