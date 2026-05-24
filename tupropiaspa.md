@@ -77,7 +77,7 @@ mi-spa/
  
 ```bash
 npm init -y
-npm install json-server@0.17.4 axios
+npm install json-server@0.17.4 
 ```
  
 ### `db.json` — la base de datos
