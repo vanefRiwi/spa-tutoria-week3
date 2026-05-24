@@ -33,7 +33,7 @@ export function navigateTo(routeName) {
     console.warn(`Router: la ruta "${routeName}" no existe.`);
     return;
   }
-  //history.pushState({ route: routeName }, '', `/${routeName}`);
+ 
 
   // Vista actualmente visible
   const current = document.querySelector('.view.active');
