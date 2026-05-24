@@ -49,8 +49,8 @@ Copiar y pegar URL principal `http://localhost:3000` en el navegador para abrir 
 
 
 ### ⚠️ Importante
->  **No usar Live Server.** Cada vez que `db.json` cambia (con cada POST
-> o DELETE), Live Server detecta el cambio y recarga la página — lo que
+>  **No usar Live Server.** Cada vez que `db.json` cambia (con cada PUT, POST
+> , DELETE), Live Server detecta el cambio y recarga la página — lo que
 > interrumpe cualquier operación en curso. Siempre usar `http://localhost:3000`.
 
 Siempre usá `http://localhost:3000`.
