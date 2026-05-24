@@ -284,7 +284,7 @@ se actualiza en un solo lugar; con `fetch` habría que buscarla en cada llamada.
 ```
 
 ### Tabla comparativa
-``` text
+
 | Comportamiento | `fetch` | `axios` |
 |---|---|---|
 | Parseo automático de JSON | ❌ Hay que llamar `.json()` | ✅ Disponible en `response.data` |
@@ -292,7 +292,7 @@ se actualiza en un solo lugar; con `fetch` habría que buscarla en cada llamada.
 | `Content-Type` en POST/PUT | ❌ Hay que declararlo manualmente | ✅ Lo agrega solo |
 | Serialización del body | ❌ Hay que usar `JSON.stringify()` | ✅ Lo hace automáticamente |
 | URL base reutilizable | ❌ Hay que repetirla en cada llamada | ✅ Se configura una vez con `axios.create()` |
-```
+
 ---
 
 ## Cómo funciona `axios` en este proyecto
