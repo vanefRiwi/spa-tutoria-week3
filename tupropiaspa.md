@@ -79,7 +79,7 @@ mi-spa/
 npm init -y
 npm install json-server@0.17.4 
 ```
- 
+
 ### `db.json` — la base de datos
  
 ```json
@@ -106,8 +106,10 @@ npm install json-server@0.17.4
 ```
  
 > `--static public` le dice a JSON Server que sirva los archivos de la
-> carpeta `public/` — ahí van el HTML, CSS y JS del cliente.
- 
+> carpeta `public/` — ahí van el HTML, CSS y JS del cliente.  
+
+> **¿Por qué no hay nodemon aquí?**  
+> Esta guía usa la CLI de JSON Server directamente (`json-server --watch db.json`), que vigila `db.json` de forma nativa. No hay ningún `server.js` que monitorear, así que nodemon no hace falta. Solo entra en juego cuando el servidor corre desde un archivo `.js` personalizado, como en el proyecto Coders SPA.
 ### Correr el servidor
  
 ```bash
