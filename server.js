@@ -65,6 +65,7 @@ server.listen(PORT, () => {
   console.log('Rutas disponibles:');
   console.log(`GET  http://localhost:${PORT}/users`);
   console.log(`GET  http://localhost:${PORT}/coders`);
+  console.log('Rutas personalizadas:');
   console.log(`GET  http://localhost:${PORT}/coders/active`);
   console.log(`GET  http://localhost:${PORT}/coders/inactive`);
   console.log(`GET  http://localhost:${PORT}/health`);
