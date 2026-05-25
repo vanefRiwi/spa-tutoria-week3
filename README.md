@@ -20,6 +20,54 @@ npm install
 ```
 
 ---
+## Cómo funciona el servidor de este proyecto ?
+ 
+JSON Server se puede usar de dos formas:
+ 
+**Con rutas por defecto — CLI directa**  
+JSON Server genera automáticamente `GET`, `POST`, `PUT` y `DELETE` para cada colección de `db.json`. Es suficiente para proyectos simples.
+ 
+```json
+// package.json
+{
+  "scripts": {
+    "start": "json-server --watch db.json --port 3000"
+  }
+}
+```
+ 
+**Con rutas personalizadas — librería en `server.js`** ← el que usa este proyecto  
+Se importa JSON Server como librería y se configuran rutas propias antes de que el router automático tome el control. Así se crean endpoints como `/coders/active`, `/coders/inactive` y `/health` que la CLI no puede generar.
+ 
+```json
+// package.json
+{
+  "scripts": {
+    "start": "node server.js"
+  }
+}
+```
+`server.js` se ve así por dentro — las rutas personalizadas van antes de que el router automático tome el control:
+ 
+```javascript
+// server.js
+import jsonServer from 'json-server';
+ 
+const server = jsonServer.create();
+const router = jsonServer.router('db.json');
+server.use(jsonServer.bodyParser);
+server.use(jsonServer.defaults());
+ 
+// rutas propias — la CLI no puede crearlas
+server.get('/coders/active',   (req, res) => { ... });
+server.get('/coders/inactive', (req, res) => { ... });
+server.get('/health',          (req, res) => { ... });
+ 
+server.use(router); // a partir de aquí, json-server maneja GET /coders, POST /coders, etc.
+server.listen(3000);
+```
+
+---
 
 ## Cómo correr el proyecto
 
