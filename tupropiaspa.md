@@ -110,7 +110,7 @@ npm install json-server@0.17.4
 
 > **¿Por qué no hay nodemon aquí?**  
 > Esta guía usa la CLI de JSON Server directamente (`json-server --watch db.json`), que vigila `db.json` de forma nativa. No hay ningún `server.js` que monitorear, así que nodemon no hace falta. Solo entra en juego cuando el servidor corre desde un archivo `.js` personalizado, como en el proyecto Coders SPA.
-### Correr el servidor
+### Correr/Levantar el servidor
  
 ```bash
 npm start
