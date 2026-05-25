@@ -74,7 +74,7 @@ mi-spa/
 ## Paso 0 — Configurar el servidor con JSON Server
  
 ### Instalación
- `npm init -y` para crear el package.json del proyecto (que son las dependencias) y `npm install json-server@0.17.4` para instalar json-server en el paquete de dependencias.
+ `npm init -y` para crear el `package.json` del proyecto (que son las dependencias) y `npm install json-server@0.17.4` para instalar `json-server` en el paquete de dependencias.
 ```bash
 npm init -y
 npm install json-server@0.17.4 
