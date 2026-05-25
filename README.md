@@ -84,6 +84,7 @@ URL principal: http://localhost:3000
 Rutas disponibles:
 GET  http://localhost:3000/users
 GET  http://localhost:3000/coders
+Rutas personalizadas:
 GET  http://localhost:3000/coders/active
 GET  http://localhost:3000/coders/inactive
 GET  http://localhost:3000/health
@@ -94,6 +95,10 @@ Copiar y pegar URL principal `http://localhost:3000` en el navegador para abrir 
 > **El servidor debe estar corriendo** para que la app funcione. Si se cierra
 > la terminal o se detiene el proceso, la app perderá la conexión y no podrá
 > cargar ni guardar datos.
+
+> > El servidor solo imprime las rutas GET en consola, pero `POST`, `PUT` y `DELETE`
+> también están disponibles para `/users` y `/coders` — JSON Server las genera
+> automáticamente para cada colección que exista en `db.json`.
 
 
 ### ⚠️ Importante
